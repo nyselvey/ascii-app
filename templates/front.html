@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>/ascii/</title>
+	</head>
+
+	<style type="text/css">
+	body {
+		position: relative;
+		font-family: sans-serif;
+		width: 800px;
+		margin: 0 auto;
+		padding: 10px;
+	}
+
+	.error {
+		color: red;
+	}
+
+	label {
+		display: block;
+		font-size: 20px;
+	}
+
+	input[type=text] {
+		width: 400px;
+		font-size: 20px;
+		padding: 2px;
+	}
+
+	textarea {
+		width: 400px;
+		height: 200px;
+		font-size: 17px;
+		font-family: monospace;
+	}
+
+	input[type=submit] {
+		font-size: 24px;
+	}
+
+	hr {
+		margin: 20px auto;
+	}
+
+	.art + .art {
+		margin-top: 20px;
+	}
+
+	.art-title {
+		font-weight: bold;
+		font-size: 20px;
+	}
+
+	.art-body {
+		margin: 0;
+		font-size: 17px;
+	}
+
+	.map {
+		position: absolute;
+		right: 0;
+		top: 112px;
+	}
+	</style>
+
+	<body>
+		<h1>/ascii/</h1>
+
+		<form method="post"> <!-- submit to ourselves -->
+			<label>
+				<div>title</div>
+				<input type="text" name="title" value="{{title}}"><!-- title of the image -->
+			</label>
+
+			<label>
+				<div>art</div>
+				<textarea name="art">{{art}}</textarea>
+				<!-- the art from the user -->
+			</label>
+
+			<div class="error">{{error}}</div>
+			<!-- error message 
+			the {{ }} renders variables in the curly braces
+			-->
+
+			<input type="submit">
+		</form>
+
+		{% if img_url %}<!-- if img_url is not none, include the image -->
+			<img class="map" src="{{img_url}}">
+		{% endif %}
+
+		<hr>
+
+		{% for art in arts %} <!-- jinja to separate html from python 
+		take art and access its title and its art body
+		-->
+			<div class="art">
+				<div class="art-title">{{art.title}}</div><!-- include the art title variable -->
+				<pre class="art-body">{{art.art}}</pre>
+			</div>
+		{% endfor %}	
+	</body>
+</html>
